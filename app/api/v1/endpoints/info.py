@@ -1,15 +1,14 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+from app.services.info_service import InfoService
 
 router = APIRouter(tags=["Info"])
 
+def get_info_service() -> InfoService:
+    return InfoService()
+
 @router.get("/info", status_code=200)
-async def app_info():
+async def app_info(service: InfoService = Depends(get_info_service)):
     """
     Endpoint to provide basic information about the application.
     """
-    return {
-        "app_name": "Smart Doc Processing API",
-        "version": "1.0",
-        "description": "API for processing and managing smart documents.",
-        "maintainer_email": "tejarockz100@gmail.com"
-    }
+    return service.get_app_info()

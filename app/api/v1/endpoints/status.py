@@ -1,15 +1,14 @@
-from fastapi import APIRouter
-from datetime import datetime
+from fastapi import APIRouter, Depends
+from app.services.status_service import StatusService
 
 router = APIRouter(tags=["Status"])
 
+def get_status_service() -> StatusService:
+    return StatusService()
+
 @router.get("/status", status_code=200)
-async def api_status():
+async def api_status(service: StatusService = Depends(get_status_service)):
     """
     Endpoint to check the status of the API.
     """
-    return {
-        "status": "running",
-        "message": "Smart Doc Processing API is up and running!",
-        "timestamp": datetime.now().isoformat()
-    }
+    return service.get_status()
