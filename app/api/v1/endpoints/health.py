@@ -1,10 +1,8 @@
 from fastapi import APIRouter, Depends
 from app.services.health_service import HealthService
+from app.api.dependencies import get_health_service
 
 router = APIRouter(tags=["Health"])
-
-def get_health_service() -> HealthService:
-    return HealthService()
 
 @router.get("/health", status_code=200)
 async def health_check(service: HealthService = Depends(get_health_service)):

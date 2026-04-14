@@ -1,10 +1,8 @@
 from fastapi import APIRouter, Depends
 from app.services.status_service import StatusService
+from app.api.dependencies import get_status_service
 
 router = APIRouter(tags=["Status"])
-
-def get_status_service() -> StatusService:
-    return StatusService()
 
 @router.get("/status", status_code=200)
 async def api_status(service: StatusService = Depends(get_status_service)):

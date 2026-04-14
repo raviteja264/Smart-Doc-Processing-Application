@@ -1,10 +1,8 @@
 from fastapi import APIRouter, Depends
 from app.services.ping_service import PingService
+from app.api.dependencies import get_ping_service
 
 router = APIRouter(tags=["ping"])
-
-def get_ping_service() -> PingService:
-    return PingService()
 
 @router.get("/ping", status_code=200)
 async def ping(service: PingService = Depends(get_ping_service)):

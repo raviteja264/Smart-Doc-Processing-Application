@@ -1,7 +1,7 @@
 from datetime import datetime
 
 class StatusService:
-    def get_status(self):
+    def get_status(self) -> dict:
         return {
             "status": "running",
             "message": "Smart Doc Processing API is up and running!",
