@@ -1,5 +1,10 @@
 from fastapi import FastAPI
 from app.api.v1.endpoints import health, info, status, ping
+from app.core.logger import setup_logging
+from app.core.config import settings
+
+# Setup logging
+setup_logging(settings.log_level)
 
 app = FastAPI(title="Smart Doc Processing API", version="1.0")
 
